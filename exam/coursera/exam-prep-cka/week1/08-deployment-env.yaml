@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ubuntu-deployment
+  namespace: learn
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: backend
+  template:
+    metadata:
+      labels:
+        tier: backend
+    spec:
+      containers:
+      - name: ubuntu
+        image: ubuntu
+        env:
+        - name: ENV1
+          value: "Hello from the environment variable"
+        - name: ENV2
+          value: "It is simple"
+        command: ["tail -f /dev/null"]
+      restartPolicy: Always

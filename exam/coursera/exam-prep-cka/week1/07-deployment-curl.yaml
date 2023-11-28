@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: curl-deployment
+  namespace: learn
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      env: debug
+  template:
+    metadata:
+      labels:
+        env: debug
+    spec:
+      containers:
+      - name: curl-container
+        image: rancher/curlimages-curl:7.73.0
+        command: ['sh']
+        args: ['-c', 'curl https://www.whizlabs.com && sleep 360']

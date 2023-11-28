@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: testpod
+  namespace: learn
+spec:
+  containers:
+  - name: testcontainer
+    image: ubuntu
+      #command: ['sh', '-c', 'echo Hello Kubernetes!!! && sleep 60']
+    command: ['sh', '-c', 'tail -f /dev/null']
+  restartPolicy: Never

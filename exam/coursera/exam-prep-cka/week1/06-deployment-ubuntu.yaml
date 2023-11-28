@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ubuntu-deployment
+  namespace: learn
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: backend
+  template:
+    metadata:
+      labels:
+        tier: backend
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        command: ["printenv"]
+        args: ["HOSTNAME"]
+      restartPolicy: Always

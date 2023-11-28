@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  namespace: learn
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      env: staging
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        env: staging
+        tier: frontend
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80

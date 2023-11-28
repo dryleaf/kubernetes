@@ -1,0 +1,46 @@
+#cloud-config
+
+# Set the hostname
+hostname: cp
+
+users:
+# A user by the name `ubuntu` is created in the image by default.
+  - name: default
+    groups: sudo
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    shell: /bin/bash
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCryYVZbd2zw1fdrMn4j+EVs2E0Diy+3EM+gBh2YAmhwOKPmmoHzfmBIxAPZ+TqD3BMTkZvmUJEtPUYBgouVabtb+AnEHDOQo3iwGVM35OwqMfDHqqoKoKNZ8GcMJIkbF3jZpc8AcFHqiQWoMk4rzbSQhqBLN8BHm4185HzRbmW5z5WZYbyNeqf8qvmjMditlXJPIXgNDsbfn5KRQnHWPzwGPFDVNVCKcxeeqHW46JDJdecYyExtSGEinWR+Q8WD/ydxYsemO/F69RUp3dmFKwvfqS/Rz8DsFZ0watiTNRgmmDTCG9/Bb3UH8ipAgx7D3XISdRuplyPC3PLK/ZlJBmLFP0FNGbyZ8M7rmi4VRu5JkiSW3kVY5AM3v6WXuKygjLOk1HVTg+q/PFV2ICExF4jjkGT6FZfGqjO+hI/ONhz01ybvePS1IySRULyBbbVJcyZWTM6rZAQLNF71tGs2NUsRXNBLPONQes5FmBHsYeEzLkVv8V/uyvdgojs+hNL4vE= dryleaf@GuardianAngel
+    lock_passwd: false
+    passwd: student
+  - name: student
+    groups: sudo
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    shell: /bin/bash
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCryYVZbd2zw1fdrMn4j+EVs2E0Diy+3EM+gBh2YAmhwOKPmmoHzfmBIxAPZ+TqD3BMTkZvmUJEtPUYBgouVabtb+AnEHDOQo3iwGVM35OwqMfDHqqoKoKNZ8GcMJIkbF3jZpc8AcFHqiQWoMk4rzbSQhqBLN8BHm4185HzRbmW5z5WZYbyNeqf8qvmjMditlXJPIXgNDsbfn5KRQnHWPzwGPFDVNVCKcxeeqHW46JDJdecYyExtSGEinWR+Q8WD/ydxYsemO/F69RUp3dmFKwvfqS/Rz8DsFZ0watiTNRgmmDTCG9/Bb3UH8ipAgx7D3XISdRuplyPC3PLK/ZlJBmLFP0FNGbyZ8M7rmi4VRu5JkiSW3kVY5AM3v6WXuKygjLOk1HVTg+q/PFV2ICExF4jjkGT6FZfGqjO+hI/ONhz01ybvePS1IySRULyBbbVJcyZWTM6rZAQLNF71tGs2NUsRXNBLPONQes5FmBHsYeEzLkVv8V/uyvdgojs+hNL4vE= dryleaf@GuardianAngel
+    lock_passwd: false
+    passwd: student
+
+## Set CPU and memory resources
+#system_info:
+#  # Specify CPU resources
+#  vcpu:
+#    count: 2  # Number of virtual CPUs
+#  # Specify memory resources
+#  memory: 2048  # Memory in megabytes (2GB)
+
+network:
+  version: 2
+  ethernets:
+    eth0:
+      dhcp4: true
+# In the above line, do not add any spaces after 'ubuntu:'.
+# NOTE: Cloud-init applies network settings on every boot by default. To retain network settings 
+# from first boot, add the following ‘write_files’ section:
+write_files:
+  - path: /etc/cloud/cloud.cfg.d/80_disable_network_after_firstboot.cfg
+    content: |
+      # Disable network configuration after first boot
+      network:
+        config: disabled
